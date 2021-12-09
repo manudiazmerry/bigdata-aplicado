@@ -1,0 +1,95 @@
+##############
+MODELO TABULAR
+##############
+
+CÓDIGO CQL
+
+# Mostrar Keyspaces
+describe keyspaces;
+
+# Crear keyspace para base de datos tabular (nome = tabular)
+CREATE KEYSPACE tabular
+WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};
+
+# Seleccionar keyspace
+use tabular;
+
+# Crear táboa
+CREATE TABLE IF NOT EXISTS videos (
+ videoid   uuid,
+ email     text,
+ title     text,
+ upload    timestamp,
+ url       text,
+ tags      set <text>,
+ frames    list<int>,
+ PRIMARY KEY (videoid)
+);
+
+# Mostrar estrutura da táboa
+describe videos;
+
+# Inserir algúns rexistros
+INSERT INTO videos(videoid, email, title, upload, url, tags, frames)
+VALUES(uuid(),
+     'clu@sample.com',
+     'Introduction to Nosql Databases',
+     toTimeStamp(now()),
+     'https://www.youtube.com/watch?v=cMDHxsGbmC8',
+     { 'nosql','workshop','2021'},
+     [ 1, 2, 3, 4]);
+
+INSERT INTO videos(videoid, email, title, upload, url)
+VALUES(uuid(),
+      'clu@sample.com',
+      'Demo video Y',
+      toTimeStamp(now()),
+      'https://www.youtube.com/watch?v=XXXX');
+
+INSERT INTO videos(videoid, email, title, upload, url)
+VALUES(e466f561-4ea4-4eb7-8dcc-126e0fbfd573,
+      'clu@sample.com',
+      'Yet another video',
+      toTimeStamp(now()),
+      'https://www.youtube.com/watch?v=ABCDE');
+
+# Mostrar rexistros
+select * from videos;
+
+# Ler un rexistro en concreto:
+select * from videos
+where videoid=e466f561-4ea4-4eb7-8dcc-126e0fbfd573; #indicar id concreto
+
+####################
+MODELO DE DOCUMENTOS
+####################
+
+# Código para inserir documentos na colección
+{
+"id" : 1,
+"titulo": "Facer a compra",
+"descricion": "ir ao supermercado e comprar o necesario para facer a cea",
+"feito": false
+}
+
+{
+"id" : 2,
+"titulo": "Facer a cea",
+"descricion": "facer cea para 15, que ven toda a tropa",
+"feito": false
+}
+
+{
+"id" : 3,
+"titulo": "Limpar a casa",
+"descricion": "barrer para debaixo da alfombra",
+"responsable": "fulanito",
+"feito": false
+}
+
+# Filtros para procuras
+{"titulo": {"$eq":"Facer a cea"}}
+
+{"responsable": {"$eq":"fulanito"}}
+
+{"feito": {"$eq":false}}
