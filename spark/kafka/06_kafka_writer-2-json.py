@@ -1,5 +1,4 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, lit
 
 appName = "Escritura a Kafka"
 master = "local"
@@ -21,6 +20,8 @@ df = spark.createDataFrame(data).toDF(*columns)
 
 df.show()
 
+# Creo un novo dataframe con dous campos: key + value
+# en value meto todos os datos en formato JSON
 kafka_df = df.selectExpr('cast(id as string) as key', 'to_json(struct(*)) as value')
 
 kafka_df.show(truncate=False)

@@ -4,7 +4,7 @@ from pyspark.sql.functions import split
 
 appName = "Streaming de Lectura Kafka"
 master = "local"
-KAFKA_SERVERS = "kafkaserver:9092"
+KAFKA_SERVERS = "localhost:9092"
 TOPIC = "palabras"
 
 spark = SparkSession.builder \
