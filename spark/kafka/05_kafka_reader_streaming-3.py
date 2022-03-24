@@ -4,7 +4,7 @@ from pyspark.sql.functions import split
 
 appName = "Streaming de Lectura Kafka"
 master = "local"
-KAFKA_SERVERS = "kafkaserver:9092"
+KAFKA_SERVERS = "localhost:9092"
 TOPIC = "palabras"
 
 spark = SparkSession.builder \
@@ -28,7 +28,7 @@ df = spark \
 words = df.select(explode(split(df.value, " ")).alias("word"))
 
 # Xenera a conta de palabras
-wordCounts = words.groupBy("word").count().orderBy("word")
+wordCounts = words.groupBy("word").count().orderBy("count")
 
 # Stream de escritura
 # opción truncate = false para poder ver as datas e horas
