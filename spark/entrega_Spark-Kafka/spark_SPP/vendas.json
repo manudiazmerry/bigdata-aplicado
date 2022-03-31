@@ -1,0 +1,236 @@
+[
+    {
+        "id": "f1e0aa77549c0668",
+        "type": "tab",
+        "label": "Vendas",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "135d8e570c828ae6",
+        "type": "inject",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "ea519f2e1c59d2fd"
+            ]
+        ]
+    },
+    {
+        "id": "ea519f2e1c59d2fd",
+        "type": "function",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "func": "var msgList = [];\n\nprodutos = [{'Tenda':'Tenda 1','Categoria':'Refrescos','produto':'Coca-Cola','prezo':0.60},\n            {'Tenda':'Tenda 1','Categoria':'Bocadillos','produto':'Bocadillo de chourizo e queixo','prezo':0.90},\n            {'Tenda':'Tenda 1','Categoria':'Carnes','produto':'Filete de magro de porco','prezo':3.20},\n            {'Tenda':'Tenda 1','Categoria':'Panaderia','produto':'Chapata','prezo':0.75},\n            {'Tenda':'Tenda 1','Categoria':'Hixiene Persoal','produto':'Xel de baño','prezo':1.90}]\n\ni = Math.floor(Math.random() * 5);\n\n\ndato_json = produtos[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 80,
+        "wires": [
+            [
+                "0c20488a5585c47b",
+                "b6a84b38581bcb75"
+            ]
+        ]
+    },
+    {
+        "id": "0c20488a5585c47b",
+        "type": "debug",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "9d670c51c8e97671",
+        "type": "inject",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 280,
+        "wires": [
+            [
+                "52019f68f2eda760"
+            ]
+        ]
+    },
+    {
+        "id": "52019f68f2eda760",
+        "type": "function",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "func": "var msgList = [];\n\nprodutos = [{'Tenda':'Tenda 2','Categoria':'Refrescos','produto':'Kas de Limón','prezo':0.55},\n            {'Tenda':'Tenda 2','Categoria':'Bocadillos','produto':'Bocadillo de xamón','prezo':1.10},\n            {'Tenda':'Tenda 2','Categoria':'Carnes','produto':'Peituga de polo','prezo':3.45},\n            {'Tenda':'Tenda 2','Categoria':'Panaderia','produto':'Barra artesana','prezo':0.50},\n            {'Tenda':'Tenda 2','Categoria':'Hixiene Persoal','produto':'Pasta de dentes','prezo':1.40}]\n\ni = Math.floor(Math.random() * 5);\n\n\ndato_json = produtos[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 280,
+        "wires": [
+            [
+                "02ec4742fbe636e8",
+                "f6408ff668012259"
+            ]
+        ]
+    },
+    {
+        "id": "02ec4742fbe636e8",
+        "type": "debug",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f6408ff668012259",
+        "type": "json",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 400,
+        "wires": [
+            [
+                "9eb02623ce015a90"
+            ]
+        ]
+    },
+    {
+        "id": "9eb02623ce015a90",
+        "type": "kafkajs-producer",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "client": "71506b1fc8d684bc",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 680,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b6a84b38581bcb75",
+        "type": "json",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 180,
+        "wires": [
+            [
+                "02cbd601cd091904"
+            ]
+        ]
+    },
+    {
+        "id": "02cbd601cd091904",
+        "type": "kafkajs-producer",
+        "z": "f1e0aa77549c0668",
+        "name": "",
+        "client": "71506b1fc8d684bc",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 660,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "71506b1fc8d684bc",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "kafkaserver",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
