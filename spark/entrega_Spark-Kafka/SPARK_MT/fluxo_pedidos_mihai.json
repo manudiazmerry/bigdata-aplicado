@@ -1,0 +1,236 @@
+[
+    {
+        "id": "d215f5c19f665831",
+        "type": "tab",
+        "label": "Pedidos",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7359b2dab3daa60b",
+        "type": "inject",
+        "z": "d215f5c19f665831",
+        "name": "Pedidos 1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "cd2bc43427be5beb"
+            ]
+        ]
+    },
+    {
+        "id": "39660878a9a0b491",
+        "type": "inject",
+        "z": "d215f5c19f665831",
+        "name": "Pedidos 2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 460,
+        "wires": [
+            [
+                "fd559c12c0674660"
+            ]
+        ]
+    },
+    {
+        "id": "cd2bc43427be5beb",
+        "type": "function",
+        "z": "d215f5c19f665831",
+        "name": "",
+        "func": "var msgList = [];\n\nj = Math.floor(Math.random() * 5);\nj = j+1\n\nprodutos = [{'Tienda':'Tienda 1','categoria':'bebida','producto':'pepsi','cantidade':j},\n            {'Tienda':'Tienda 1','categoria':'comida','producto':'arroz','cantidade':j},\n            {'Tienda':'Tienda 1','categoria':'juguetes','producto':'cochecito','cantidade':j},\n            {'Tienda':'Tienda 1','categoria':'bebida','producto':'fanta','cantidade':j}]\n\ni = Math.floor(Math.random() * 4);\n\ndato_json = produtos[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 120,
+        "wires": [
+            [
+                "be94b77d4f4c7a65",
+                "aaa4ece1e2abb4e5"
+            ]
+        ]
+    },
+    {
+        "id": "fd559c12c0674660",
+        "type": "function",
+        "z": "d215f5c19f665831",
+        "name": "",
+        "func": "var msgList = [];\n\nj = Math.floor(Math.random() * 5);\nj = j+1\n\nprodutos = [{'Tienda':'Tienda 2','categoria':'bebida','producto':'agua','cantidade':j},\n            {'Tienda':'Tienda 2','categoria':'comida','producto':'patatas fritas','cantidade':j},\n            {'Tienda':'Tienda 2','categoria':'juguetes','producto':'avion','cantidade':j},\n            {'Tienda':'Tienda 2','categoria':'bebida','producto':'limonada','cantidade':j}]\n\ni = Math.floor(Math.random() * 4);\n\ndato_json = produtos[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 480,
+        "wires": [
+            [
+                "8aa77e444d7776df",
+                "0abb60eb6fdeb1bd"
+            ]
+        ]
+    },
+    {
+        "id": "be94b77d4f4c7a65",
+        "type": "debug",
+        "z": "d215f5c19f665831",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8aa77e444d7776df",
+        "type": "debug",
+        "z": "d215f5c19f665831",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "aaa4ece1e2abb4e5",
+        "type": "json",
+        "z": "d215f5c19f665831",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "0676013b63840aa9"
+            ]
+        ]
+    },
+    {
+        "id": "0676013b63840aa9",
+        "type": "kafkajs-producer",
+        "z": "d215f5c19f665831",
+        "name": "",
+        "client": "fbf6e922bb867066",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 640,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0abb60eb6fdeb1bd",
+        "type": "json",
+        "z": "d215f5c19f665831",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 430,
+        "y": 560,
+        "wires": [
+            [
+                "4caaf8e37c2b07f2"
+            ]
+        ]
+    },
+    {
+        "id": "4caaf8e37c2b07f2",
+        "type": "kafkajs-producer",
+        "z": "d215f5c19f665831",
+        "name": "",
+        "client": "fbf6e922bb867066",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 640,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "fbf6e922bb867066",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
