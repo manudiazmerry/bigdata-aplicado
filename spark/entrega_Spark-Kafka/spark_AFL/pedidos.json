@@ -1,0 +1,216 @@
+[
+    {
+        "id": "b698f70227a4d836",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9ff55b0804c3796d",
+        "type": "inject",
+        "z": "b698f70227a4d836",
+        "name": "PedidosLugo",
+        "props": [],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "c2f2b9ebc6f50191"
+            ]
+        ]
+    },
+    {
+        "id": "2ac3103eda810c7a",
+        "type": "inject",
+        "z": "b698f70227a4d836",
+        "name": "PedidosCoruña",
+        "props": [],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "240a2ccb223920a6"
+            ]
+        ]
+    },
+    {
+        "id": "abeefac4f0db8320",
+        "type": "debug",
+        "z": "b698f70227a4d836",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "a5058417897d1b5d",
+        "type": "debug",
+        "z": "b698f70227a4d836",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "148b336cd7f17304",
+        "type": "json",
+        "z": "b698f70227a4d836",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 260,
+        "wires": [
+            [
+                "b3acc6d8f02523e7"
+            ]
+        ]
+    },
+    {
+        "id": "c108e40544ce01aa",
+        "type": "json",
+        "z": "b698f70227a4d836",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 100,
+        "wires": [
+            [
+                "288207db6e9f399b"
+            ]
+        ]
+    },
+    {
+        "id": "b3acc6d8f02523e7",
+        "type": "kafkajs-producer",
+        "z": "b698f70227a4d836",
+        "name": "",
+        "client": "63213628a0751bec",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 680,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "288207db6e9f399b",
+        "type": "kafkajs-producer",
+        "z": "b698f70227a4d836",
+        "name": "",
+        "client": "63213628a0751bec",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 680,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c2f2b9ebc6f50191",
+        "type": "function",
+        "z": "b698f70227a4d836",
+        "name": "",
+        "func": "var msgList = [];\n\ndato_json = [{ tenda : 'Lugo', categoria: 'Libros' , producto: 'Un poco de odio', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'Lugo', categoria: 'Libros', producto: 'El Hobbit', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'Lugo', categoria: 'Libros', producto: 'Historias de Terramar', cantidade: Math.floor(Math.random() * 10)+1 },\n\t         { tenda : 'Lugo', categoria: 'Comics', producto: 'Maus', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'Lugo', categoria: 'Comics', producto: 'Los surcos del azar', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'Lugo', categoria: 'Comics', producto: 'El Hobbit', cantidade: Math.floor(Math.random() * 10)+1 },\n\t         { tenda : 'Lugo', categoria: 'Papeleria', producto: 'Lapiz', cantidade: Math.floor(Math.random() * 10)+1 },\n\t         { tenda : 'Lugo', categoria: 'Papeleria', producto: 'Boligrafo', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'Lugo', categoria: 'Papeleria', producto: 'Goma', cantidade: Math.floor(Math.random() * 10)+1 }]\n\ni = Math.floor(Math.random() * 9);\n\nmsgList.push({payload:dato_json[i]});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "c108e40544ce01aa",
+                "abeefac4f0db8320"
+            ]
+        ]
+    },
+    {
+        "id": "240a2ccb223920a6",
+        "type": "function",
+        "z": "b698f70227a4d836",
+        "name": "",
+        "func": "var msgList = [];\n\ndato_json = [{ tenda : 'A Coruña', categoria: 'Libros', producto: 'El problema de la paz', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'A Coruña', categoria: 'Libros', producto: 'Dime quien soy', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'A Coruña', categoria: 'Libros', producto: 'Historias de Terramar', cantidade: Math.floor(Math.random() * 10)+1 },\n\t         { tenda : 'A Coruña', categoria: 'Comics', producto: 'Arrugas', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'A Coruña', categoria: 'Comics', producto: 'Los surcos del azar', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'A Coruña', categoria: 'Comics', producto: 'Maus', cantidade: Math.floor(Math.random() * 10)+1 },\n\t         { tenda : 'A Coruña', categoria: 'Papeleria', producto: 'Lapiz', cantidade: Math.floor(Math.random() * 10)+1 },\n\t         { tenda : 'A Coruña', categoria: 'Papeleria', producto: 'Boligrafo', cantidade: Math.floor(Math.random() * 10)+1 },\n             { tenda : 'A Coruña', categoria: 'Papeleria', producto: 'Goma', cantidade: Math.floor(Math.random() * 10)+1 }]\n\ni = Math.floor(Math.random() * 9);\n\nmsgList.push({payload:dato_json[i]});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 220,
+        "wires": [
+            [
+                "148b336cd7f17304",
+                "a5058417897d1b5d"
+            ]
+        ]
+    },
+    {
+        "id": "63213628a0751bec",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.100:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]

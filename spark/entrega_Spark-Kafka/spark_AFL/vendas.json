@@ -1,0 +1,236 @@
+[
+    {
+        "id": "c8aebc8350b05e91",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c41dad708e7242ba",
+        "type": "inject",
+        "z": "c8aebc8350b05e91",
+        "name": "VendasLugo",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "941701f168758659"
+            ]
+        ]
+    },
+    {
+        "id": "4d72df77951cfdbf",
+        "type": "debug",
+        "z": "c8aebc8350b05e91",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "941701f168758659",
+        "type": "function",
+        "z": "c8aebc8350b05e91",
+        "name": "",
+        "func": "var msgList = [];\n\ndato_json = [{ tenda : 'Lugo', producto: 'Un poco de odio', prezo: 20, categoria: 'Libros' },\n             { tenda : 'Lugo', producto: 'El Hobbit', prezo: 15, categoria: 'Libros' },\n             { tenda : 'Lugo', producto: 'Historias de Terramar', prezo: 40, categoria: 'Libros' },\n\t         { tenda : 'Lugo', producto: 'Maus', prezo: 20, categoria: 'Comics' },\n             { tenda : 'Lugo', producto: 'Los surcos del azar', prezo: 25, categoria: 'Comics' },\n             { tenda : 'Lugo', producto: 'El Hobbit', prezo: 15, categoria: 'Comics' },\n\t         { tenda : 'Lugo', producto: 'Lapiz', prezo: 1, categoria: 'Papeleria' },\n\t         { tenda : 'Lugo', producto: 'Boligrafo', prezo: 1.5, categoria: 'Papeleria' },\n             { tenda : 'Lugo', producto: 'Goma', prezo: 1, categoria: 'Papeleria' }]\n\ni = Math.floor(Math.random() * 9);\n\nmsgList.push({payload:dato_json[i]});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "4d72df77951cfdbf",
+                "a3abc6ebdbb09cba"
+            ]
+        ]
+    },
+    {
+        "id": "db605fef0728d909",
+        "type": "kafkajs-producer",
+        "z": "c8aebc8350b05e91",
+        "name": "",
+        "client": "63213628a0751bec",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 680,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a3abc6ebdbb09cba",
+        "type": "json",
+        "z": "c8aebc8350b05e91",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 100,
+        "wires": [
+            [
+                "db605fef0728d909"
+            ]
+        ]
+    },
+    {
+        "id": "a2d77b771a238187",
+        "type": "inject",
+        "z": "c8aebc8350b05e91",
+        "name": "VendasCoruña",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "c79df1e9d3641bb2"
+            ]
+        ]
+    },
+    {
+        "id": "c79df1e9d3641bb2",
+        "type": "function",
+        "z": "c8aebc8350b05e91",
+        "name": "",
+        "func": "var msgList = [];\n\ndato_json = [{ tenda : 'A Coruña', producto: 'El problema de la paz', prezo: 22, categoria: 'Libros' },\n             { tenda : 'A Coruña', producto: 'Dime quien soy', prezo: 10, categoria: 'Libros' },\n             { tenda : 'A Coruña', producto: 'Historias de Terramar', prezo: 50, categoria: 'Libros' },\n\t         { tenda : 'A Coruña', producto: 'Arrugas', prezo: 20, categoria: 'Comics' },\n             { tenda : 'A Coruña', producto: 'Los surcos del azar', prezo: 25, categoria: 'Comics' },\n             { tenda : 'A Coruña', producto: 'Maus', prezo: 18, categoria: 'Comics' },\n\t         { tenda : 'A Coruña', producto: 'Lapiz', prezo: 0.95, categoria: 'Papeleria' },\n\t         { tenda : 'A Coruña', producto: 'Boligrafo', prezo: 1, categoria: 'Papeleria' },\n             { tenda : 'A Coruña', producto: 'Goma', prezo: 0.5, categoria: 'Papeleria' }]\n\ni = Math.floor(Math.random() * 9);\n\nmsgList.push({payload:dato_json[i]});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 220,
+        "wires": [
+            [
+                "24d877cd9f858144",
+                "f4b3046a882de760"
+            ]
+        ]
+    },
+    {
+        "id": "f4b3046a882de760",
+        "type": "json",
+        "z": "c8aebc8350b05e91",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 260,
+        "wires": [
+            [
+                "4ea11fe3cf66f453"
+            ]
+        ]
+    },
+    {
+        "id": "4ea11fe3cf66f453",
+        "type": "kafkajs-producer",
+        "z": "c8aebc8350b05e91",
+        "name": "",
+        "client": "63213628a0751bec",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 680,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "24d877cd9f858144",
+        "type": "debug",
+        "z": "c8aebc8350b05e91",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "63213628a0751bec",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.100:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
