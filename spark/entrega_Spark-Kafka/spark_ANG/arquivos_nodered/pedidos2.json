@@ -1,0 +1,135 @@
+[
+    {
+        "id": "6d26f334e593346d",
+        "type": "tab",
+        "label": "Pedidos2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "05838aa3bb366a58",
+        "type": "json",
+        "z": "6d26f334e593346d",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 710,
+        "y": 320,
+        "wires": [
+            [
+                "ab5b13bb2059d763"
+            ]
+        ]
+    },
+    {
+        "id": "ab5b13bb2059d763",
+        "type": "kafkajs-producer",
+        "z": "6d26f334e593346d",
+        "name": "",
+        "client": "73f48790a87d201a",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 900,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d7aa2e916b220980",
+        "type": "function",
+        "z": "6d26f334e593346d",
+        "name": "",
+        "func": "var msgList = [];\n\nopts_pedido = [{\"tipo\":\"pedido\", \"producto\":\"cartulina\",\"cantidade\":\"30\", \"tenda\":\"ferrol\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"pedido\", \"producto\":\"grapadora\",\"cantidade\":\"2\", \"tenda\":\"ferrol\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"pedido\", \"producto\":\"folios\",\"cantidade\":\"8\", \"tenda\":\"ferrol\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"pedido\", \"producto\":\"boli\",\"cantidade\":\"5\",\"tenda\":\"ferrol\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"pedido\", \"producto\":\"action man\",\"cantidade\":\"1\",\"tenda\":\"ferrol\", \"categoria\":\"xoguetes\"}]\n\ni = Math.floor(Math.random() * 5);\n\ndato_json = opts_pedido[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 280,
+        "wires": [
+            [
+                "72e59223e769b647",
+                "05838aa3bb366a58"
+            ]
+        ]
+    },
+    {
+        "id": "823bc22249e409d4",
+        "type": "inject",
+        "z": "6d26f334e593346d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "22",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 390,
+        "y": 280,
+        "wires": [
+            [
+                "d7aa2e916b220980"
+            ]
+        ]
+    },
+    {
+        "id": "72e59223e769b647",
+        "type": "debug",
+        "z": "6d26f334e593346d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "73f48790a87d201a",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.200:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
