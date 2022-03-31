@@ -1,0 +1,237 @@
+[
+    {
+        "id": "a1bf7d5d3d9ffce6",
+        "type": "tab",
+        "label": "ejercicio_2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d3076f90e990d801",
+        "type": "inject",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "pedidos",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "657010d04c04b9c1"
+            ]
+        ]
+    },
+    {
+        "id": "657010d04c04b9c1",
+        "type": "function",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "pedidos1",
+        "func": "var msgList = [];\n\nlista=[\n{\"tienda\":\"1\",\"producto\":\"tv\",\"cantidade\":\"12\",\"categoria\":\"electrodomesticos\"},\n{\"tienda\":\"1\",\"producto\":\"batidora\", \"cantidade\":\"6\", \"categoria\":\"electrodomesticos\"},\n{\"tienda\":\"1\",\"producto\":\"rooter\", \"cantidade\":\"4\", \"categoria\":\"informatica\"}]\n\ni = Math.floor(Math.random() * 3);\n\n\ndato_json = lista[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 100,
+        "wires": [
+            [
+                "6350cc5d7c54f5e3",
+                "3ed698341bf8f460"
+            ]
+        ]
+    },
+    {
+        "id": "6350cc5d7c54f5e3",
+        "type": "debug",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7a6a63a7201fdc1b",
+        "type": "kafkajs-producer",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "",
+        "client": "29bc350e51bac128",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 1040,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "3ed698341bf8f460",
+        "type": "json",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 790,
+        "y": 280,
+        "wires": [
+            [
+                "7a6a63a7201fdc1b"
+            ]
+        ]
+    },
+    {
+        "id": "a813279a5b40877f",
+        "type": "inject",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "pedidos2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "e74b6ab770688947"
+            ]
+        ]
+    },
+    {
+        "id": "e74b6ab770688947",
+        "type": "function",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "pedidos2",
+        "func": "var msgList = [];\n\nlista=[\n{\"tienda\":\"2\",\"producto\":\"tv\",\"cantidade\":\"1\",\"categoria\":\"electrodomesticos\"},\n{\"tienda\":\"2\",\"producto\":\"batidora\", \"cantidade\":\"2\", \"categoria\":\"electrodomesticos\"},\n{\"tienda\":\"2\",\"producto\":\"tv\", \"cantidade\":\"1\", \"categoria\":\"informatica\"}]\n\ni = Math.floor(Math.random() * 3);\n\n\ndato_json = lista[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 560,
+        "wires": [
+            [
+                "12728db4deb538d2",
+                "0f2ad45ff3f9fdf9"
+            ]
+        ]
+    },
+    {
+        "id": "12728db4deb538d2",
+        "type": "debug",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "0f2ad45ff3f9fdf9",
+        "type": "json",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 640,
+        "wires": [
+            [
+                "49c00d1adf931baa"
+            ]
+        ]
+    },
+    {
+        "id": "49c00d1adf931baa",
+        "type": "kafkajs-producer",
+        "z": "a1bf7d5d3d9ffce6",
+        "name": "",
+        "client": "29bc350e51bac128",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 940,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "29bc350e51bac128",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
