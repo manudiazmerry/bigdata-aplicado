@@ -1,0 +1,196 @@
+[
+    {
+        "id": "25a4a8aa88b36b41",
+        "type": "inject",
+        "z": "a88d68f5be22c9a1",
+        "name": "Ventas Tienda 1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "f35323fbe635a09b"
+            ]
+        ]
+    },
+    {
+        "id": "85ce077167a211db",
+        "type": "debug",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "f35323fbe635a09b",
+        "type": "function",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "func": "var msgList = []\n\ngrupos = {\n    \"electronica\":[\"ordenador portatil\", \"tablet\", \"movil\", \"mp4\", \"tv\", \"pantalla\", \"ordenador de sobremesa\"],\n    \"papeleria\":[\"folios A4\", \"lapiz\", \"boligrafo\", \"rotulador permanente\", \"portaminas\", \"goma de borrar\", \"cartulina\"],\n    \"muebles\":[\"silla\", \"mesa\", \"sillon\", \"sofa\", \"escritorio\", \"estanteria\", \"armario\"],\n    \"niños\":[\"pañales\", \"peluche\", \"potito\", \"cuna\", \"carrito\", \"silla de coche\", \"jueguete\"],\n    \"electrodomesticos\":[\"lavadora\", \"microondas\", \"cafetera\", \"batidora\", \"nevera\", \"aspirador\", \"horno\"]\n};\nnombresCategoria = [\"electronica\", \"papeleria\", \"muebles\", \"niños\", \"electrodomesticos\"];\nciudad = \"Madrid\"\nfecha = new Date()\nnCategoria = Math.floor(Math.random() * 5);\nnProducto = Math.floor(Math.random() * 7);\nprecio = 0;\n\nswitch(nombresCategoria[nCategoria]){\n    case \"electronica\":\n        precio = (Math.random() * 1500) + 100;\n        break;\n    case \"papeleria\":\n        precio = (Math.random() * 5) + 1;\n        break;\n    case \"muebles\":\n        precio = (Math.random() * 500) + 50;\n        break;\n    case \"niños\":\n        precio = (Math.random() * 150) + 50;\n        break;\n    case \"electrodomesticos\":\n        precio = (Math.random() * 250) + 100;\n        break;\n}\n\njson = '{\\\n    \"tienda\":\"'+ciudad+'\",\\\n    \"fecha\":\"'+fecha.toString()+'\",\\\n    \"categoria\":\"'+nombresCategoria[nCategoria]+'\",\\\n    \"producto\":\"'+grupos[nombresCategoria[nCategoria]][nProducto]+'\",\\\n    \"precio\":\"'+precio+'\"\\\n}';\n\nmsgList.push({payload:json})\n\nreturn [msgList]",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 200,
+        "wires": [
+            [
+                "85ce077167a211db",
+                "0afe3be12c1cd057"
+            ]
+        ]
+    },
+    {
+        "id": "6f16f478d3f1d344",
+        "type": "inject",
+        "z": "a88d68f5be22c9a1",
+        "name": "Ventas Tienda 2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 440,
+        "y": 280,
+        "wires": [
+            [
+                "9bb2473bbc6189f2"
+            ]
+        ]
+    },
+    {
+        "id": "56426bc1351fe713",
+        "type": "debug",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "9bb2473bbc6189f2",
+        "type": "function",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "func": "var msgList = []\n\ngrupos = {\n    \"electronica\":[\"ordenador portatil\", \"tablet\", \"movil\", \"mp4\", \"tv\", \"pantalla\", \"ordenador de sobremesa\"],\n    \"papeleria\":[\"folios A4\", \"lapiz\", \"boligrafo\", \"rotulador permanente\", \"portaminas\", \"goma de borrar\", \"cartulina\"],\n    \"muebles\":[\"silla\", \"mesa\", \"sillon\", \"sofa\", \"escritorio\", \"estanteria\", \"armario\"],\n    \"niños\":[\"pañales\", \"peluche\", \"potito\", \"cuna\", \"carrito\", \"silla de coche\", \"jueguete\"],\n    \"electrodomesticos\":[\"lavadora\", \"microondas\", \"cafetera\", \"batidora\", \"nevera\", \"aspirador\", \"horno\"]\n};\nnombresCategoria = [\"electronica\", \"papeleria\", \"muebles\", \"niños\", \"electrodomesticos\"];\nciudad = \"Pobra de Trives\"\nfecha = new Date()\nnCategoria = Math.floor(Math.random() * 5);\nnProducto = Math.floor(Math.random() * 7);\nprecio = 0;\n\nswitch(nombresCategoria[nCategoria]){\n    case \"electronica\":\n        precio = (Math.random() * 1500) + 100;\n        break;\n    case \"papeleria\":\n        precio = (Math.random() * 5) + 1;\n        break;\n    case \"muebles\":\n        precio = (Math.random() * 500) + 50;\n        break;\n    case \"niños\":\n        precio = (Math.random() * 150) + 50;\n        break;\n    case \"electrodomesticos\":\n        precio = (Math.random() * 250) + 100;\n        break;\n}\n\njson = '{\\\n    \"tienda\":\"'+ciudad+'\",\\\n    \"fecha\":\"'+fecha.toString()+'\",\\\n    \"categoria\":\"'+nombresCategoria[nCategoria]+'\",\\\n    \"producto\":\"'+grupos[nombresCategoria[nCategoria]][nProducto]+'\",\\\n    \"precio\":\"'+precio+'\"\\\n}';\n\nmsgList.push({payload:json})\n\nreturn [msgList]",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 280,
+        "wires": [
+            [
+                "56426bc1351fe713",
+                "ef380314ce151cbf"
+            ]
+        ]
+    },
+    {
+        "id": "ef380314ce151cbf",
+        "type": "kafkajs-producer",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "client": "8ab87a6a84ba70d6",
+        "topic": "ventas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 850,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0afe3be12c1cd057",
+        "type": "kafkajs-producer",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "client": "8ab87a6a84ba70d6",
+        "topic": "ventas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 850,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8ab87a6a84ba70d6",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.200:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
