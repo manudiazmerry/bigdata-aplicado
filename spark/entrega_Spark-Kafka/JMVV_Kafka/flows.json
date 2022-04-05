@@ -1,0 +1,474 @@
+[
+    {
+        "id": "b6871fa2d1f780ad",
+        "type": "tab",
+        "label": "Fluxo Tendas",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e49bd107582e3e44",
+        "type": "tab",
+        "label": "Fluxo Pedidos",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "944561ad6e7b2816",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    },
+    {
+        "id": "29bc350e51bac128",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    },
+    {
+        "id": "dd2bd7a6d81757cb",
+        "type": "inject",
+        "z": "b6871fa2d1f780ad",
+        "name": "Carrefour",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "b8cc63a2bced87d7"
+            ]
+        ]
+    },
+    {
+        "id": "b8cc63a2bced87d7",
+        "type": "function",
+        "z": "b6871fa2d1f780ad",
+        "name": "",
+        "func": "var produto = [];\n\nlista_produtos =\n[\n    {\n        \"tenda\" : \"Chino Antonio\",\n        \"categoria\" : \"Informatica\",\n        \"produto\" : \"Raton Lazer\",\n        \"prezo\" : 49.99\n    },\n    {\n        \"tenda\" : \"Chino Antonio\",\n        \"categoria\" : \"Roupa\",\n        \"produto\" : \"Camiseta\", \n        \"prezo\" : 29.99 \n    },\n    {\n        \"tenda\" : \"Chino Antonio\",\n        \"categoria\" : \"Electrodomestico\",\n        \"produto\" : \"Microondas\", \n        \"prezo\" : 79.99\n    },\n    {\n        \"tenda\" : \"Chino Antonio\",\n        \"categoria\" : \"Limpeza\",\n        \"produto\" : \"Fregona\", \n        \"prezo\" : 3.95\n    }\n]\n// Obtén un produto aleatorio\ni = Math.floor(Math.random() * 3);\n\nproduto_json = lista_produtos[i]\n\nproduto.push({payload:produto_json});\n\nreturn [produto];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "4b21307ea886dc15",
+                "d0340ca09770fd53"
+            ]
+        ]
+    },
+    {
+        "id": "d0340ca09770fd53",
+        "type": "json",
+        "z": "b6871fa2d1f780ad",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 240,
+        "wires": [
+            [
+                "598f1fb6b36b85cf"
+            ]
+        ]
+    },
+    {
+        "id": "4b21307ea886dc15",
+        "type": "debug",
+        "z": "b6871fa2d1f780ad",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "598f1fb6b36b85cf",
+        "type": "kafkajs-producer",
+        "z": "b6871fa2d1f780ad",
+        "name": "",
+        "client": "944561ad6e7b2816",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 880,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "05728066b7ae867a",
+        "type": "inject",
+        "z": "b6871fa2d1f780ad",
+        "name": "Chino Antonio",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "4afdaea17ed917bf"
+            ]
+        ]
+    },
+    {
+        "id": "4afdaea17ed917bf",
+        "type": "function",
+        "z": "b6871fa2d1f780ad",
+        "name": "",
+        "func": "var produto = [];\n\nlista_produtos =\n[\n    {\n        \"tenda\" : \"Carrefour\",\n        \"categoria\" : \"Informatica\",\n        \"produto\" : \"Raton Razer\",\n        \"prezo\" : 99.99\n    },\n    {\n        \"tenda\" : \"Carrefour\",\n        \"categoria\" : \"Roupa\",\n        \"produto\" : \"Pantalons\", \n        \"prezo\" : 39.99\n    },\n    {\n        \"tenda\" : \"Carrefour\",\n        \"categoria\" : \"Electrodomestico\",\n        \"produto\" : \"Lavadora\", \n        \"prezo\" : 399.99\n    },\n    {\n        \"tenda\" : \"Carrefour\",\n        \"categoria\" : \"Limpeza\",\n        \"produto\" : \"Don Limpio\", \n        \"prezo\" : 1.95\n    }\n]\n// Obtén un produto aleatorio\ni = Math.floor(Math.random() * 3);\n\nproduto_json = lista_produtos[i]\n\nproduto.push({payload:produto_json});\n\nreturn [produto];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 420,
+        "wires": [
+            [
+                "f3f6607c551a1c57",
+                "d54f6d6679b09e58"
+            ]
+        ]
+    },
+    {
+        "id": "f3f6607c551a1c57",
+        "type": "debug",
+        "z": "b6871fa2d1f780ad",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "d54f6d6679b09e58",
+        "type": "json",
+        "z": "b6871fa2d1f780ad",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 400,
+        "wires": [
+            [
+                "a7bce1dc93581ae8"
+            ]
+        ]
+    },
+    {
+        "id": "a7bce1dc93581ae8",
+        "type": "kafkajs-producer",
+        "z": "b6871fa2d1f780ad",
+        "name": "",
+        "client": "944561ad6e7b2816",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 880,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "89f9a6e7cfface5b",
+        "type": "inject",
+        "z": "e49bd107582e3e44",
+        "name": "Carrefour",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 370,
+        "y": 220,
+        "wires": [
+            [
+                "8e229c9a5296cd58"
+            ]
+        ]
+    },
+    {
+        "id": "8e229c9a5296cd58",
+        "type": "function",
+        "z": "e49bd107582e3e44",
+        "name": "",
+        "func": "var produto = [];\n\nlista_produtos =\n[\n    {\n        \"tenda\" : \"Chino Antonio\",\n        \"categoria\" : \"Informatica\",\n        \"produto\" : \"Raton Lazer\",\n        \"prezo\" : 49.99\n    },\n    {\n        \"tenda\" : \"Chino Antonio\",\n        \"categoria\" : \"Roupa\",\n        \"produto\" : \"Camiseta\", \n        \"prezo\" : 29.99 \n    },\n    {\n        \"tenda\" : \"Chino Antonio\",\n        \"categoria\" : \"Electrodomestico\",\n        \"produto\" : \"Microondas\", \n        \"prezo\" : 79.99\n    },\n    {\n        \"tenda\" : \"Chino Antonio\",\n        \"categoria\" : \"Limpeza\",\n        \"produto\" : \"Fregona\", \n        \"prezo\" : 3.95\n    }\n]\n// Obtén un produto aleatorio\ni = Math.floor(Math.random() * 3);\n\nproduto_json = lista_produtos[i]\n\nproduto.push({payload:produto_json});\n\nreturn [produto];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "59cd711704be4274",
+                "4463bc3b3c774e83"
+            ]
+        ]
+    },
+    {
+        "id": "4463bc3b3c774e83",
+        "type": "json",
+        "z": "e49bd107582e3e44",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 710,
+        "y": 240,
+        "wires": [
+            [
+                "791619a79e4ac6ed"
+            ]
+        ]
+    },
+    {
+        "id": "59cd711704be4274",
+        "type": "debug",
+        "z": "e49bd107582e3e44",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "791619a79e4ac6ed",
+        "type": "kafkajs-producer",
+        "z": "e49bd107582e3e44",
+        "name": "",
+        "client": "944561ad6e7b2816",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 940,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1dca6f5cc13423a6",
+        "type": "inject",
+        "z": "e49bd107582e3e44",
+        "name": "Chino Antonio",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 420,
+        "wires": [
+            [
+                "450cfbfe7ceb2b9a"
+            ]
+        ]
+    },
+    {
+        "id": "450cfbfe7ceb2b9a",
+        "type": "function",
+        "z": "e49bd107582e3e44",
+        "name": "",
+        "func": "var produto = [];\n\nlista_produtos =\n[\n    {\n        \"tenda\" : \"Carrefour\",\n        \"categoria\" : \"Informatica\",\n        \"produto\" : \"Raton Razer\",\n        \"prezo\" : 99.99\n    },\n    {\n        \"tenda\" : \"Carrefour\",\n        \"categoria\" : \"Roupa\",\n        \"produto\" : \"Pantalons\", \n        \"prezo\" : 39.99\n    },\n    {\n        \"tenda\" : \"Carrefour\",\n        \"categoria\" : \"Electrodomestico\",\n        \"produto\" : \"Lavadora\", \n        \"prezo\" : 399.99\n    },\n    {\n        \"tenda\" : \"Carrefour\",\n        \"categoria\" : \"Limpeza\",\n        \"produto\" : \"Don Limpio\", \n        \"prezo\" : 1.95\n    }\n]\n// Obtén un produto aleatorio\ni = Math.floor(Math.random() * 3);\n\nproduto_json = lista_produtos[i]\n\nproduto.push({payload:produto_json});\n\nreturn [produto];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 420,
+        "wires": [
+            [
+                "7174cbfce5928051",
+                "ac8a818abe3c496b"
+            ]
+        ]
+    },
+    {
+        "id": "7174cbfce5928051",
+        "type": "debug",
+        "z": "e49bd107582e3e44",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "ac8a818abe3c496b",
+        "type": "json",
+        "z": "e49bd107582e3e44",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 710,
+        "y": 400,
+        "wires": [
+            [
+                "5399d30bd2883fc6"
+            ]
+        ]
+    },
+    {
+        "id": "5399d30bd2883fc6",
+        "type": "kafkajs-producer",
+        "z": "e49bd107582e3e44",
+        "name": "",
+        "client": "944561ad6e7b2816",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 940,
+        "y": 400,
+        "wires": []
+    }
+]
