@@ -1,0 +1,135 @@
+[
+    {
+        "id": "274229ab89df3873",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e334af5cf34482a1",
+        "type": "inject",
+        "z": "274229ab89df3873",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ola mundo",
+        "payloadType": "str",
+        "x": 230,
+        "y": 80,
+        "wires": [
+            [
+                "ebe881e616dcb645"
+            ]
+        ]
+    },
+    {
+        "id": "08649262fc0e4062",
+        "type": "debug",
+        "z": "274229ab89df3873",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ebe881e616dcb645",
+        "type": "function",
+        "z": "274229ab89df3873",
+        "name": "Tenda",
+        "func": "var msgList = [];\n\ntenda = 'Tu ultramarino de confi' \ncategorias = [\"papeleria\",\"xardineria\",\"informatica\",\"comida\",\"electrodomesticos\"]\nproductos = [\"salchichas\",\"teclado gaming\",\"maceta\",\"lapiz\",\"boli\", \"raton gaming\", \"regadeira\", \"berenxenas\"]\nprezos = [15.00,20.95,20.99,17.00,14.40, 100.12, 4.99, 499.99]\n\ni = Math.floor(Math.random() * 5);\nj = Math.floor(Math.random() * 8);\nk = Math.floor(Math.random() * 8);\n\ndato_json = { tenda : tenda, categoria: categorias[i], producto: productos[j], prezo: prezos[k] }\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 80,
+        "wires": [
+            [
+                "08649262fc0e4062",
+                "656b29aaacff16f1"
+            ]
+        ]
+    },
+    {
+        "id": "8a42438ac99ac61a",
+        "type": "kafkajs-producer",
+        "z": "274229ab89df3873",
+        "name": "",
+        "client": "034962211cf36956",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 780,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "656b29aaacff16f1",
+        "type": "json",
+        "z": "274229ab89df3873",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [
+                "8a42438ac99ac61a"
+            ]
+        ]
+    },
+    {
+        "id": "034962211cf36956",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]

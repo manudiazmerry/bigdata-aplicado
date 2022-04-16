@@ -1,0 +1,135 @@
+[
+    {
+        "id": "7c2237c2c336d47f",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "11e840aa47240862",
+        "type": "inject",
+        "z": "7c2237c2c336d47f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ola mundo",
+        "payloadType": "str",
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "ca816a68d3f3e0eb"
+            ]
+        ]
+    },
+    {
+        "id": "a55d5bd15b60dd11",
+        "type": "debug",
+        "z": "7c2237c2c336d47f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ca816a68d3f3e0eb",
+        "type": "function",
+        "z": "7c2237c2c336d47f",
+        "name": "Pedidos",
+        "func": "var msgList = [];\n\ntenda = 'Tu ultramarino de confi' \ncategorias = [\"papeleria\",\"xardineria\",\"informatica\",\"comida\",\"electrodomesticos\"]\nproductos = [\"salchichas\",\"teclado gaming\",\"maceta\",\"lapiz\",\"boli\", \"raton gaming\", \"regadeira\", \"berenxenas\"]\ncantidades = [23,1,2,15,40, 7, 6, 2]\n\ni = Math.floor(Math.random() * 5);\nj = Math.floor(Math.random() * 8);\nk = Math.floor(Math.random() * 8);\n\ndato_json = { tenda : tenda, categoria: categorias[i], producto: productos[j], cantidade: cantidades[k] }\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 80,
+        "wires": [
+            [
+                "a55d5bd15b60dd11",
+                "8214b4c8335cda28"
+            ]
+        ]
+    },
+    {
+        "id": "6f07cd4e3cc0ceb9",
+        "type": "kafkajs-producer",
+        "z": "7c2237c2c336d47f",
+        "name": "",
+        "client": "034962211cf36956",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 840,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8214b4c8335cda28",
+        "type": "json",
+        "z": "7c2237c2c336d47f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 180,
+        "wires": [
+            [
+                "6f07cd4e3cc0ceb9"
+            ]
+        ]
+    },
+    {
+        "id": "034962211cf36956",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
