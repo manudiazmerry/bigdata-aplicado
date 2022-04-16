@@ -1,0 +1,196 @@
+[
+    {
+        "id": "84cbcd3acd36e421",
+        "type": "inject",
+        "z": "a88d68f5be22c9a1",
+        "name": "Pedidos Tienda 1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 540,
+        "wires": [
+            [
+                "3fdbbe593b94d173"
+            ]
+        ]
+    },
+    {
+        "id": "7a56d4fc0f016849",
+        "type": "debug",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3fdbbe593b94d173",
+        "type": "function",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "func": "var msgList = []\n\ngrupos = {\n    \"electronica\":[\"ordenador portatil\", \"tablet\", \"movil\", \"mp4\", \"tv\", \"pantalla\", \"ordenador de sobremesa\"],\n    \"papeleria\":[\"folios A4\", \"lapiz\", \"boligrafo\", \"rotulador permanente\", \"portaminas\", \"goma de borrar\", \"cartulina\"],\n    \"muebles\":[\"silla\", \"mesa\", \"sillon\", \"sofa\", \"escritorio\", \"estanteria\", \"armario\"],\n    \"niños\":[\"pañales\", \"peluche\", \"potito\", \"cuna\", \"carrito\", \"silla de coche\", \"jueguete\"],\n    \"electrodomesticos\":[\"lavadora\", \"microondas\", \"cafetera\", \"batidora\", \"nevera\", \"aspirador\", \"horno\"]\n};\nnombresCategoria = [\"electronica\", \"papeleria\", \"muebles\", \"niños\", \"electrodomesticos\"];\nciudad = \"Madrid\"\nfecha = new Date()\nnCategoria = Math.floor(Math.random() * 5);\nnProducto = Math.floor(Math.random() * 7);\ncantidad = Math.floor(Math.random() * 1000) + 50;\n\njson = '{\\\n    \"tienda\":\"'+ciudad+'\",\\\n    \"fecha\":\"'+fecha.toString()+'\",\\\n    \"categoria\":\"'+nombresCategoria[nCategoria]+'\",\\\n    \"producto\":\"'+grupos[nombresCategoria[nCategoria]][nProducto]+'\",\\\n    \"cantidad\":\"'+cantidad+'\"\\\n}';\n\nmsgList.push({payload:json})\n\nreturn [msgList]",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 540,
+        "wires": [
+            [
+                "7a56d4fc0f016849",
+                "7b09a932135d93e0"
+            ]
+        ]
+    },
+    {
+        "id": "e1608d280dba63c7",
+        "type": "inject",
+        "z": "a88d68f5be22c9a1",
+        "name": "Pedidos Tienda 2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 620,
+        "wires": [
+            [
+                "9dcd43ce68444e17"
+            ]
+        ]
+    },
+    {
+        "id": "c19124713dbbf9d4",
+        "type": "debug",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "9dcd43ce68444e17",
+        "type": "function",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "func": "var msgList = []\n\ngrupos = {\n    \"electronica\":[\"ordenador portatil\", \"tablet\", \"movil\", \"mp4\", \"tv\", \"pantalla\", \"ordenador de sobremesa\"],\n    \"papeleria\":[\"folios A4\", \"lapiz\", \"boligrafo\", \"rotulador permanente\", \"portaminas\", \"goma de borrar\", \"cartulina\"],\n    \"muebles\":[\"silla\", \"mesa\", \"sillon\", \"sofa\", \"escritorio\", \"estanteria\", \"armario\"],\n    \"niños\":[\"pañales\", \"peluche\", \"potito\", \"cuna\", \"carrito\", \"silla de coche\", \"jueguete\"],\n    \"electrodomesticos\":[\"lavadora\", \"microondas\", \"cafetera\", \"batidora\", \"nevera\", \"aspirador\", \"horno\"]\n};\nnombresCategoria = [\"electronica\", \"papeleria\", \"muebles\", \"niños\", \"electrodomesticos\"];\nciudad = \"Pobra de Trives\"\nfecha = new Date()\nnCategoria = Math.floor(Math.random() * 5);\nnProducto = Math.floor(Math.random() * 7);\ncantidad = Math.floor(Math.random() * 1000) + 50;\n\njson = '{\\\n    \"tienda\":\"'+ciudad+'\",\\\n    \"fecha\":\"'+fecha.toString()+'\",\\\n    \"categoria\":\"'+nombresCategoria[nCategoria]+'\",\\\n    \"producto\":\"'+grupos[nombresCategoria[nCategoria]][nProducto]+'\",\\\n    \"cantidad\":\"'+cantidad+'\"\\\n}';\n\nmsgList.push({payload:json})\n\nreturn [msgList]",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 620,
+        "wires": [
+            [
+                "c19124713dbbf9d4",
+                "5de5efed67dd036d"
+            ]
+        ]
+    },
+    {
+        "id": "5de5efed67dd036d",
+        "type": "kafkajs-producer",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "client": "8ab87a6a84ba70d6",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 850,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "7b09a932135d93e0",
+        "type": "kafkajs-producer",
+        "z": "a88d68f5be22c9a1",
+        "name": "",
+        "client": "8ab87a6a84ba70d6",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 850,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "8ab87a6a84ba70d6",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.200:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
