@@ -1,0 +1,238 @@
+[
+    {
+        "id": "b98026a8c3b7287f",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "785124f02126ebec",
+        "type": "inject",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Vendas alpargata",
+        "payloadType": "str",
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [
+                "fb8571daff6c22f9"
+            ]
+        ]
+    },
+    {
+        "id": "fb8571daff6c22f9",
+        "type": "function",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "func": "var msgList = [];\n\nvar cats = ['limpeza', 'comida', 'escolar', 'mecanica', 'xogos de mesa', 'electrodomestico', 'campo', 'ordenador', 'hixiene'];\n\nvar produtos = {'limpeza': ['Lexía', 'Limpiacristais', 'Fregona', 'Quitagrasas', 'Fairy', 'Esponxa'],\n            'comida': ['Macarróns', 'Tomate', 'Grelos', 'Pimentos', 'Cecina', 'Chourizo'],\n            'escolar': ['Libreta', 'Bolígrafo', 'Axenda', 'Goma', 'Portaminas', 'Calculadora'],\n            'mecanica': ['Embrague', 'Roda', 'Faro', 'Filtro de aceite', 'Catalizador', 'Refrixerante'],\n            'xogos de mesa': ['Monopoli', 'Cartas', 'Puzzle', 'Axedrez', 'Damas', 'Parchís'],\n            'electrodomestico': ['Microondas', 'Forno', 'Batidora', 'Tostadora', 'Nevera', 'Conxelador'],\n            'campo': ['Sacho', 'Aixada', 'Fouce', 'Desbrozadora', 'Forqueta', 'Pala'],\n            'ordenador': ['Gráfica', 'RAM', 'HDD', 'SSD', 'CPU', 'nvme'],\n            'hixiene': ['Xabón', 'Crema hidratante', 'Plutonio', 'Pasta de dentes', 'Cepillo de dentes', 'Toallitas']\n            };\n\nvar rango_prezos = {'limpeza': (Math.random() * 10 + 3).toFixed(2),\n                'comida': (Math.random() * 5 + 1).toFixed(2),\n                'escolar': (Math.random() * 15 + 1).toFixed(2),\n                'mecanica': (Math.random() * 400 + 50).toFixed(2),\n                'xogos de mesa': (Math.random() * 50 + 20).toFixed(2),\n                'electrodomestico': (Math.random() * 200 + 40).toFixed(2),\n                'campo': (Math.random() * 60 + 20).toFixed(2),\n                'ordenador': (Math.random() * 900 + 70).toFixed(2),\n                'hixiene': (Math.random() * 10 + 2).toFixed(2) \n                }; \n\n\n\ni = Math.floor(Math.random() * 9);\nj = Math.floor(Math.random() * 6);\n\ncat_select = cats[i];\n\n\nJSON = {'Tenda' : 'Casa alpargata', 'Categoria' :cat_select, 'Produto' : produtos[cat_select][j], 'Prezo' : rango_prezos[cat_select]};\n\nmsgList.push({payload:JSON});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 340,
+        "wires": [
+            [
+                "ad81900242caf4f0",
+                "252935bbe98cecb2"
+            ]
+        ]
+    },
+    {
+        "id": "ad81900242caf4f0",
+        "type": "debug",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "b0d7d15d027b79ec",
+        "type": "kafkajs-producer",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "client": "77133e6154dcd6e8",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 820,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "17885440d5378925",
+        "type": "inject",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "4",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Vendas zamburiña",
+        "payloadType": "str",
+        "x": 1100,
+        "y": 340,
+        "wires": [
+            [
+                "e297e145ae62b5bf"
+            ]
+        ]
+    },
+    {
+        "id": "e297e145ae62b5bf",
+        "type": "function",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "func": "var msgList = [];\n\nvar cats = ['limpeza', 'comida', 'escolar', 'mecanica', 'xogos de mesa', 'electrodomestico', 'campo', 'ordenador', 'hixiene'];\n\nvar produtos = {'limpeza': ['Lexía', 'Limpiacristais', 'Fregona', 'Quitagrasas', 'Fairy', 'Esponxa'],\n            'comida': ['Macarróns', 'Tomate', 'Grelos', 'Pimentos', 'Cecina', 'Chourizo'],\n            'escolar': ['Libreta', 'Bolígrafo', 'Axenda', 'Goma', 'Portaminas', 'Calculadora'],\n            'mecanica': ['Embrague', 'Roda', 'Faro', 'Filtro de aceite', 'Catalizador', 'Refrixerante'],\n            'xogos de mesa': ['Monopoli', 'Cartas', 'Puzzle', 'Axedrez', 'Damas', 'Parchís'],\n            'electrodomestico': ['Microondas', 'Forno', 'Batidora', 'Tostadora', 'Nevera', 'Conxelador'],\n            'campo': ['Sacho', 'Aixada', 'Fouce', 'Desbrozadora', 'Forqueta', 'Pala'],\n            'ordenador': ['Gráfica', 'RAM', 'HDD', 'SSD', 'CPU', 'nvme'],\n            'hixiene': ['Xabón', 'Crema hidratante', 'Plutonio', 'Pasta de dentes', 'Cepillo de dentes', 'Toallitas']\n            };\n\nvar rango_prezos = {'limpeza': (Math.random() * 10 + 3).toFixed(2),\n                'comida': (Math.random() * 5 + 1).toFixed(2),\n                'escolar': (Math.random() * 15 + 1).toFixed(2),\n                'mecanica': (Math.random() * 400 + 50).toFixed(2),\n                'xogos de mesa': (Math.random() * 50 + 20).toFixed(2),\n                'electrodomestico': (Math.random() * 200 + 40).toFixed(2),\n                'campo': (Math.random() * 60 + 20).toFixed(2),\n                'ordenador': (Math.random() * 900 + 70).toFixed(2),\n                'hixiene': (Math.random() * 10 + 2).toFixed(2) \n                }; \n\n\n\ni = Math.floor(Math.random() * 9);\nj = Math.floor(Math.random() * 6);\n\ncat_select = cats[i];\n\nJSON = {'Tenda' : 'Zamburiña sells', 'Categoria' :cat_select, 'Produto' : produtos[cat_select][j], 'Prezo' : rango_prezos[cat_select]};\n\nmsgList.push({payload:JSON});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1280,
+        "y": 340,
+        "wires": [
+            [
+                "b20c78bc15649d41",
+                "e8b2e2c30653aff0"
+            ]
+        ]
+    },
+    {
+        "id": "b20c78bc15649d41",
+        "type": "debug",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1490,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "81e6bf19b03d8a2d",
+        "type": "kafkajs-producer",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "client": "77133e6154dcd6e8",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 1500,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "252935bbe98cecb2",
+        "type": "json",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": true,
+        "x": 650,
+        "y": 440,
+        "wires": [
+            [
+                "b0d7d15d027b79ec"
+            ]
+        ]
+    },
+    {
+        "id": "e8b2e2c30653aff0",
+        "type": "json",
+        "z": "b98026a8c3b7287f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1330,
+        "y": 440,
+        "wires": [
+            [
+                "81e6bf19b03d8a2d"
+            ]
+        ]
+    },
+    {
+        "id": "77133e6154dcd6e8",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
