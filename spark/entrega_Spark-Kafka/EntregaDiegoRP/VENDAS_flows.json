@@ -1,0 +1,236 @@
+[
+    {
+        "id": "ca9f2be5036d2091",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dfe3c5bcdd97f2a7",
+        "type": "json",
+        "z": "ca9f2be5036d2091",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "3edab1779cd60dbf"
+            ]
+        ]
+    },
+    {
+        "id": "e452f9e6fc91766a",
+        "type": "debug",
+        "z": "ca9f2be5036d2091",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "4aea233087740782",
+        "type": "inject",
+        "z": "ca9f2be5036d2091",
+        "name": "vendas1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "2d33a5a692b14557"
+            ]
+        ]
+    },
+    {
+        "id": "2d33a5a692b14557",
+        "type": "function",
+        "z": "ca9f2be5036d2091",
+        "name": "",
+        "func": "var msgList = [];\n\ncategorias = [\"categoria1\", \"categoria2\", \"categoria3\"]\nproducto = [\"producto1\",\"producto2\",\"producto3\"]\nprecio = [123, 234, 345]\n\ni = Math.floor(Math.random() * 3);\nj = Math.floor(Math.random() * 3);\n\ndato_json = { nombreTienda : \"SuperTienda1\" , categoria: categorias[i], producto:producto[j], precio: precio[j]}\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 80,
+        "wires": [
+            [
+                "dfe3c5bcdd97f2a7",
+                "e452f9e6fc91766a"
+            ]
+        ]
+    },
+    {
+        "id": "3edab1779cd60dbf",
+        "type": "kafkajs-producer",
+        "z": "ca9f2be5036d2091",
+        "name": "",
+        "client": "873e712c2a644a63",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 600,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d35b9eac192af104",
+        "type": "inject",
+        "z": "ca9f2be5036d2091",
+        "name": "vendas2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 260,
+        "wires": [
+            [
+                "cc91aa69b4fe09c5"
+            ]
+        ]
+    },
+    {
+        "id": "cc91aa69b4fe09c5",
+        "type": "function",
+        "z": "ca9f2be5036d2091",
+        "name": "",
+        "func": "var msgList = [];\n\ncategorias = [\"categoria1\", \"categoria2\", \"categoria3\"]\nproducto = [\"producto1\",\"producto2\",\"producto3\"]\nprecio = [456, 222, 311]\n\ni = Math.floor(Math.random() * 3);\nj = Math.floor(Math.random() * 3);\n\ndato_json = { nombreTienda : \"SuperTienda2\" , categoria: categorias[i], producto:producto[j], precio: precio[j]}\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "071887156d9b5e88",
+                "a64275d47e33f227"
+            ]
+        ]
+    },
+    {
+        "id": "b6bc1180a250df48",
+        "type": "kafkajs-producer",
+        "z": "ca9f2be5036d2091",
+        "name": "",
+        "client": "873e712c2a644a63",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 600,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "071887156d9b5e88",
+        "type": "json",
+        "z": "ca9f2be5036d2091",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "b6bc1180a250df48"
+            ]
+        ]
+    },
+    {
+        "id": "a64275d47e33f227",
+        "type": "debug",
+        "z": "ca9f2be5036d2091",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "873e712c2a644a63",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.100:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]

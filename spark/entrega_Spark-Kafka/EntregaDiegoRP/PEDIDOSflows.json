@@ -1,0 +1,237 @@
+[
+    {
+        "id": "46895c4ef46e61ab",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0fcfbf8520e5e974",
+        "type": "inject",
+        "z": "46895c4ef46e61ab",
+        "name": "pedidos1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "3721c6ec0ec1db3b"
+            ]
+        ]
+    },
+    {
+        "id": "3721c6ec0ec1db3b",
+        "type": "function",
+        "z": "46895c4ef46e61ab",
+        "name": "",
+        "func": "var msgList = [];\n\ncategorias = [\"categoria1\", \"categoria2\", \"categoria3\"]\nproducto = [\"producto1\",\"producto2\",\"producto3\"]\ncantidad = [1,2,3,4,5,6,7,8,9,10]\n\ni = Math.floor(Math.random() * 1);\nj = Math.floor(Math.random() * 3);\ne = Math.floor(Math.random() * 3);\np = Math.floor(Math.random() * 10);\n\ndato_json = { nombreTienda : \"SuperTienda1\" , categoria: categorias[j], producto:producto[e], cantidad:cantidad[p]}\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 80,
+        "wires": [
+            [
+                "6e0d235eab77186e",
+                "1f774db5e6b12803"
+            ]
+        ]
+    },
+    {
+        "id": "1f774db5e6b12803",
+        "type": "debug",
+        "z": "46895c4ef46e61ab",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6e0d235eab77186e",
+        "type": "json",
+        "z": "46895c4ef46e61ab",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "db2c1fa96188e041"
+            ]
+        ]
+    },
+    {
+        "id": "db2c1fa96188e041",
+        "type": "kafkajs-producer",
+        "z": "46895c4ef46e61ab",
+        "name": "",
+        "client": "873e712c2a644a63",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 580,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "29a386f39da4752c",
+        "type": "kafkajs-producer",
+        "z": "46895c4ef46e61ab",
+        "name": "",
+        "client": "873e712c2a644a63",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 580,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3240a75a5d842b3c",
+        "type": "json",
+        "z": "46895c4ef46e61ab",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "29a386f39da4752c"
+            ]
+        ]
+    },
+    {
+        "id": "eff378653497a035",
+        "type": "debug",
+        "z": "46895c4ef46e61ab",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c7e0a309bb56dbcb",
+        "type": "inject",
+        "z": "46895c4ef46e61ab",
+        "name": "pedidos2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "018e42c676ba322e"
+            ]
+        ]
+    },
+    {
+        "id": "018e42c676ba322e",
+        "type": "function",
+        "z": "46895c4ef46e61ab",
+        "name": "",
+        "func": "var msgList = [];\n\ncategorias = [\"categoria1\", \"categoria2\", \"categoria3\"]\nproducto = [\"producto1\",\"producto2\",\"producto3\"]\ncantidad = [1,2,3,4,5,6,7,8,9,10]\n\ni = Math.floor(Math.random() * 2);\nj = Math.floor(Math.random() * 3);\ne = Math.floor(Math.random() * 3);\np = Math.floor(Math.random() * 10);\n\ndato_json = { nombreTienda : \"SuperTienda2\" , categoria: categorias[j], producto:producto[e], cantidad:cantidad[p]}\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "eff378653497a035",
+                "3240a75a5d842b3c"
+            ]
+        ]
+    },
+    {
+        "id": "873e712c2a644a63",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.100:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
