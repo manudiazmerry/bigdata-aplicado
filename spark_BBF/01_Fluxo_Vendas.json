@@ -1,0 +1,184 @@
+[
+    {
+        "id": "ba76abeb1f25f527",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a69b9990fd21c2ba",
+        "type": "inject",
+        "z": "ba76abeb1f25f527",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 40,
+        "wires": [
+            [
+                "eae0d8cd69316b32"
+            ]
+        ]
+    },
+    {
+        "id": "cad9fc8dbd86d86d",
+        "type": "function",
+        "z": "ba76abeb1f25f527",
+        "name": "ManoloBlahnik_NightCity",
+        "func": "var msgList = [];\n\nproducto  = [\"Harley Quinn Nº 15\",\"Fluoxetina\",\"Pocophone R32\",\"Bolo Preñado\",\"Chips de Garbanzos\",\"Estrella de Navidad\",\"Hilo de Pescar - 50m\",\"Hilo de Pescar - 20m\",\"Twin Peaks - The Complete Collection (BluRay)\",\"Dominar Unity en una semana\",\"Floppy Brids (HTML)\",\"Deus Ex (PC)\",\"Boli Bic - Eternal Prestige\",\"Calculadora Cientifica HP LP9050 - Doom Edition\",\"Tostadora LCD\"]\nprecio    = [9.95,2.50,350.00,1.25,4.25,0.50,6.95,4.95,50.09,360.15,0.25,5.00,45.25,127.68,9.99] \ncategoria = [\"Libros\",\"Medicina\",\"Tecnología\",\"Alimentación\",\"Alimentación\",\"Decoración\",\"Ocio marino\",\"Ocio marino\",\"Multimedia\",\"Libros\",\"Multimedia\",\"Multimedia\",\"Material de oficina\",\"Material de oficina\",\"Cocina\"]\ncantidad  = Math.floor(Math.random() * 42);\n\ni = Math.floor(Math.random() * 15)+1;\n\ndato_json = { producto : producto[i], precio: precio[i],categoria:categoria[i],cantidad:cantidad,tienda:\"Night City\" }\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "2b8f5a8cb9c32d1b",
+                "85f986ba2ddc8de4"
+            ]
+        ]
+    },
+    {
+        "id": "85f986ba2ddc8de4",
+        "type": "debug",
+        "z": "ba76abeb1f25f527",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "eae0d8cd69316b32",
+        "type": "function",
+        "z": "ba76abeb1f25f527",
+        "name": "ManoloBlahnik_LiberyCity",
+        "func": "var msgList = [];\n\nproducto  = [\"Pinza para pelo\",\"Fluoxetina\",\"iDroid V12\",\"Dorayakis\",\"Air Lays\",\"Figura Niño José\",\"Anzuelo Pesca - Mosca\",\"Anzuelo Pesca- Queso\",\"Californication Season 4 (DVD)\",\"El arte del BrainFuck\",\"Slap Chris Rock (HTML)\",\"Carmageddon (PC)\",\"Pluma Parker\",\"Quake IV - Romero Returns\",\"Casio LSD\"]\nprecio    = [0.50,2.50,350.00,1.25,4.25,0.50,6.95,4.95,50.09,360.15,0.25,5.00,45.25,127.68,9.99] \ncategoria = [\"Belleza\",\"Medicina\",\"Tecnología\",\"Alimentación\",\"Alimentación\",\"Decoración\",\"Ocio marino\",\"Ocio marino\",\"Multimedia\",\"Libros\",\"Multimedia\",\"Multimedia\",\"Material de oficina\",\"Material de oficina\",\"Cocina\"]\ncantidad  = Math.floor(Math.random() * 42);\n\ni = Math.floor(Math.random() * 14)+1;\n\ndato_json = { producto : producto[i], precio: precio[i],categoria:categoria[i],cantidad:cantidad,tienda:\"Libery City\" }\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "2b8f5a8cb9c32d1b",
+                "85f986ba2ddc8de4"
+            ]
+        ]
+    },
+    {
+        "id": "2b8f5a8cb9c32d1b",
+        "type": "json",
+        "z": "ba76abeb1f25f527",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 710,
+        "y": 160,
+        "wires": [
+            [
+                "23d382fbd7f6715c"
+            ]
+        ]
+    },
+    {
+        "id": "23d382fbd7f6715c",
+        "type": "kafkajs-producer",
+        "z": "ba76abeb1f25f527",
+        "name": "",
+        "client": "d0c30bf32106ffed",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 940,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3bfb1729d6dbc75e",
+        "type": "inject",
+        "z": "ba76abeb1f25f527",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 320,
+        "wires": [
+            [
+                "cad9fc8dbd86d86d"
+            ]
+        ]
+    },
+    {
+        "id": "d0c30bf32106ffed",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.100:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
