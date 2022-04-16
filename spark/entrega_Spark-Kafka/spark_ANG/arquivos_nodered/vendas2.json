@@ -1,0 +1,135 @@
+[
+    {
+        "id": "cd16fe8a6003d9d0",
+        "type": "tab",
+        "label": "Vendas2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "436f33e653ded298",
+        "type": "inject",
+        "z": "cd16fe8a6003d9d0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "13",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "87135180b9047a47"
+            ]
+        ]
+    },
+    {
+        "id": "1fe85433b736f68e",
+        "type": "debug",
+        "z": "cd16fe8a6003d9d0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "87135180b9047a47",
+        "type": "function",
+        "z": "cd16fe8a6003d9d0",
+        "name": "",
+        "func": "var msgList = [];\n\nopts_venda = [{\"tipo\":\"venda\", \"producto\":\"cartulina\",\"prezo\":\"0.1\", \"tenda\":\"ferrol\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"venda\", \"producto\":\"grapadora\",\"prezo\":\"2.8\", \"tenda\":\"ferrol\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"venda\", \"producto\":\"folios\",\"prezo\":\"3.2\", \"tenda\":\"ferrol\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"venda\", \"producto\":\"boli\",\"prezo\":\"1.0\",\"tenda\":\"ferrol\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"venda\", \"producto\":\"action man\",\"prezo\":\"3.8\",\"tenda\":\"ferrol\", \"categoria\":\"xoguetes\"}]\n\ni = Math.floor(Math.random() * 5);\n\ndato_json = opts_venda[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 140,
+        "wires": [
+            [
+                "1fe85433b736f68e",
+                "c15a38b184d4c55e"
+            ]
+        ]
+    },
+    {
+        "id": "bea14a33f60cb6d4",
+        "type": "kafkajs-producer",
+        "z": "cd16fe8a6003d9d0",
+        "name": "",
+        "client": "73f48790a87d201a",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 380,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c15a38b184d4c55e",
+        "type": "json",
+        "z": "cd16fe8a6003d9d0",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "bea14a33f60cb6d4"
+            ]
+        ]
+    },
+    {
+        "id": "73f48790a87d201a",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.200:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]

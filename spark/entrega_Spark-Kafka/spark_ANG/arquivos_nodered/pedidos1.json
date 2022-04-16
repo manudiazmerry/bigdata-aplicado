@@ -1,0 +1,135 @@
+[
+    {
+        "id": "bb79269b52398c9d",
+        "type": "tab",
+        "label": "Pedidos1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5ac418e515373afd",
+        "type": "inject",
+        "z": "bb79269b52398c9d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "17",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 280,
+        "wires": [
+            [
+                "02d84ecef9378006"
+            ]
+        ]
+    },
+    {
+        "id": "a8b0cd55609d5ed0",
+        "type": "debug",
+        "z": "bb79269b52398c9d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "02d84ecef9378006",
+        "type": "function",
+        "z": "bb79269b52398c9d",
+        "name": "",
+        "func": "var msgList = [];\n\nopts_pedido = [{\"tipo\":\"pedido\", \"producto\":\"lapiz\",\"cantidade\":\"5\", \"tenda\":\"coru\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"pedido\", \"producto\":\"goma\",\"cantidade\":\"3\", \"tenda\":\"coru\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"pedido\", \"producto\":\"folios\",\"cantidade\":\"2\", \"tenda\":\"coru\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"pedido\", \"producto\":\"boli\",\"cantidade\":\"6\",\"tenda\":\"coru\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"pedido\", \"producto\":\"barbie\",\"cantidade\":\"1\",\"tenda\":\"coru\", \"categoria\":\"xoguetes\"}]\n\ni = Math.floor(Math.random() * 5);\n\ndato_json = opts_pedido[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 280,
+        "wires": [
+            [
+                "a8b0cd55609d5ed0",
+                "095c08352b037da0"
+            ]
+        ]
+    },
+    {
+        "id": "095c08352b037da0",
+        "type": "json",
+        "z": "bb79269b52398c9d",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 320,
+        "wires": [
+            [
+                "bdda2e32569e70d5"
+            ]
+        ]
+    },
+    {
+        "id": "bdda2e32569e70d5",
+        "type": "kafkajs-producer",
+        "z": "bb79269b52398c9d",
+        "name": "",
+        "client": "73f48790a87d201a",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 740,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "73f48790a87d201a",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.200:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]

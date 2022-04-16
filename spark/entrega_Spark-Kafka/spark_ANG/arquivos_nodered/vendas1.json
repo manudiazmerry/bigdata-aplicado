@@ -1,0 +1,136 @@
+[
+    {
+        "id": "c7bfc29157fec991",
+        "type": "tab",
+        "label": "Vendas1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "736e6d8a1979fc38",
+        "type": "inject",
+        "z": "c7bfc29157fec991",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "5302b2e9c39cd8e5"
+            ]
+        ]
+    },
+    {
+        "id": "5302b2e9c39cd8e5",
+        "type": "function",
+        "z": "c7bfc29157fec991",
+        "name": "",
+        "func": "var msgList = [];\n\nopts_venda = [{\"tipo\":\"venda\", \"producto\":\"lapiz\",\"prezo\":\"0.3\", \"tenda\":\"coru\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"venda\", \"producto\":\"goma\",\"prezo\":\"0.4\", \"tenda\":\"coru\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"venda\", \"producto\":\"folios\",\"prezo\":\"3.2\", \"tenda\":\"coru\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"venda\", \"producto\":\"boli\",\"prezo\":\"1.0\",\"tenda\":\"coru\", \"categoria\":\"papeleria\"},\n              {\"tipo\":\"venda\", \"producto\":\"barbie\",\"prezo\":\"4.7\",\"tenda\":\"coru\", \"categoria\":\"xoguetes\"}]\n\ni = Math.floor(Math.random() * 5);\n\ndato_json = opts_venda[i]\n\nmsgList.push({payload:dato_json});\n\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 140,
+        "wires": [
+            [
+                "15113f9db977b66c",
+                "581ddb2686d819d4"
+            ]
+        ]
+    },
+    {
+        "id": "581ddb2686d819d4",
+        "type": "debug",
+        "z": "c7bfc29157fec991",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ab3becb9b432e355",
+        "type": "kafkajs-producer",
+        "z": "c7bfc29157fec991",
+        "name": "",
+        "client": "73f48790a87d201a",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 460,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "15113f9db977b66c",
+        "type": "json",
+        "z": "c7bfc29157fec991",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 290,
+        "y": 220,
+        "wires": [
+            [
+                "ab3becb9b432e355"
+            ]
+        ]
+    },
+    {
+        "id": "73f48790a87d201a",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "192.168.0.200:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
