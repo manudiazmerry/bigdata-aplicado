@@ -1,0 +1,449 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b16c048db926d228",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7c25fbc7ddd6ff14",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafkaserver:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    },
+    {
+        "id": "a16beaee10bd3eab",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "productos de tiemda",
+        "payloadType": "str",
+        "x": 240,
+        "y": 100,
+        "wires": [
+            [
+                "4bb41441641fd959"
+            ]
+        ]
+    },
+    {
+        "id": "1042a1128d4ee5eb",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 758,
+        "y": 76,
+        "wires": []
+    },
+    {
+        "id": "975e9874e142615c",
+        "type": "kafkajs-producer",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "client": "7c25fbc7ddd6ff14",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 1018,
+        "y": 196,
+        "wires": []
+    },
+    {
+        "id": "4bb41441641fd959",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "var msgList = [];\ndatos = [{\"tind\": \"Froiz\", \"pre\": 5, \"pro\":\"gorra\", \"cate\":\"ropa\"},\n{\"tind\": \"Froiz\", \"pre\": 6, \"pro\":\"gato(supuesta carne de pollo)\",  \"cate\":\"ropa\"},\n{\"tind\": \"Froiz\", \"pre\": 3, \"pro\":\"manta\",  \"cate\":\"comida\"},\n{\"tind\": \"Froiz\", \"pre\": 26, \"pro\":\"pantalon\", \"cate\":\"ropa\"},\n{\"tind\": \"Froiz\", \"pre\": 4, \"pro\":\"zapatos\", \"cate\":\"comida\"}]\n\n\ni = Math.floor(Math.random() * 5);\nmsgList.push({payload:datos[i]});\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 538,
+        "y": 156,
+        "wires": [
+            [
+                "1042a1128d4ee5eb",
+                "70df0aea63c78b4f"
+            ]
+        ]
+    },
+    {
+        "id": "70df0aea63c78b4f",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 758,
+        "y": 196,
+        "wires": [
+            [
+                "975e9874e142615c"
+            ]
+        ]
+    },
+    {
+        "id": "cf29c3179a2fefba",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "12",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "segunda tienda",
+        "payloadType": "str",
+        "x": 270,
+        "y": 400,
+        "wires": [
+            [
+                "b6dbd271bb6c1bde"
+            ]
+        ]
+    },
+    {
+        "id": "b463e7efa8c9fd62",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 798,
+        "y": 316,
+        "wires": []
+    },
+    {
+        "id": "e1c56ad3ab4945fc",
+        "type": "kafkajs-producer",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "client": "7c25fbc7ddd6ff14",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 1058,
+        "y": 436,
+        "wires": []
+    },
+    {
+        "id": "b6dbd271bb6c1bde",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "var msgList = [];\ndatos = [{\"tind\": \"Dia\", \"pre\": 5, \"pro\":\"patatas\",  \"cate\":\"ropa\"},\n{\"tind\": \"Dia\", \"pre\": 8, \"pro\":\"pollo\", \"cate\":\"ropa\"},\n{\"tind\": \"Dia\", \"pre\": 7, \"pro\":\"agua\",  \"cate\":\"comida\"},\n{\"tind\": \"Dia\", \"pre\": 14, \"pro\":\"comida\",  \"cate\":\"comida\"},\n{\"tind\": \"Dia\", \"pre\": 3, \"pro\":\"salsa\",  \"cate\":\"comida\"}]\n\n\ni = Math.floor(Math.random() * 5);\nmsgList.push({payload:datos[i]});\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 577,
+        "y": 396,
+        "wires": [
+            [
+                "b463e7efa8c9fd62",
+                "085ac5ebd731ebd0"
+            ]
+        ]
+    },
+    {
+        "id": "085ac5ebd731ebd0",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 798,
+        "y": 436,
+        "wires": [
+            [
+                "e1c56ad3ab4945fc"
+            ]
+        ]
+    },
+    {
+        "id": "cdcfe3e2a13cae6c",
+        "type": "inject",
+        "z": "b16c048db926d228",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "productos de tiemda",
+        "payloadType": "str",
+        "x": 340,
+        "y": 220,
+        "wires": [
+            [
+                "9bb898dfc3f41cf1"
+            ]
+        ]
+    },
+    {
+        "id": "5ed215ba576f71d5",
+        "type": "debug",
+        "z": "b16c048db926d228",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 798,
+        "y": 136,
+        "wires": []
+    },
+    {
+        "id": "b8c79aff7a042957",
+        "type": "kafkajs-producer",
+        "z": "b16c048db926d228",
+        "name": "",
+        "client": "7c25fbc7ddd6ff14",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 1059,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9bb898dfc3f41cf1",
+        "type": "function",
+        "z": "b16c048db926d228",
+        "name": "",
+        "func": "var msgList = [];\ndatos = [\n{\"bar\": \"Uno\", \"precio\": 4, \"producto\":\"caldo\", \"cantidad\":\"5\", \"categoria\":\"tela\"},\n{\"bar\": \"Uno\", \"precio\": 9, \"producto\":\"pulpo\", \"cantidad\":\"3\", \"categoria\":\"tela\"},\n{\"bar\": \"Uno\", \"precio\": 7, \"producto\":\"ternera\", \"cantidad\":\"1\", \"categoria\":\"comida\"},\n{\"bar\": \"Uno\", \"precio\": 6, \"producto\":\"soda\", \"cantidad\":\"2\", \"categoria\":\"comida\"},\n{\"bar\": \"Uno\", \"precio\": 8, \"producto\":\"bocata\", \"cantidad\":\"2\", \"categoria\":\"comida\"}]\n\n\ni = Math.floor(Math.random() * 5);\nmsgList.push({payload:datos[i]});\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 220,
+        "wires": [
+            [
+                "5ed215ba576f71d5",
+                "0e07eedcb0c624d2"
+            ]
+        ]
+    },
+    {
+        "id": "0e07eedcb0c624d2",
+        "type": "json",
+        "z": "b16c048db926d228",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 770,
+        "y": 280,
+        "wires": [
+            [
+                "b8c79aff7a042957"
+            ]
+        ]
+    },
+    {
+        "id": "4139bf198f9f47a3",
+        "type": "inject",
+        "z": "b16c048db926d228",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "12",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "segunda tienda",
+        "payloadType": "str",
+        "x": 250,
+        "y": 500,
+        "wires": [
+            [
+                "2288e213f0769ec5"
+            ]
+        ]
+    },
+    {
+        "id": "ed60c022f6e2dede",
+        "type": "debug",
+        "z": "b16c048db926d228",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 778,
+        "y": 416,
+        "wires": []
+    },
+    {
+        "id": "e1f2a5e401ec2966",
+        "type": "kafkajs-producer",
+        "z": "b16c048db926d228",
+        "name": "",
+        "client": "7c25fbc7ddd6ff14",
+        "topic": "pedidos",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 1038,
+        "y": 536,
+        "wires": []
+    },
+    {
+        "id": "2288e213f0769ec5",
+        "type": "function",
+        "z": "b16c048db926d228",
+        "name": "",
+        "func": "var msgList = [];\ndatos = [\n{\"bar\": \"dos\", \"precio\": \"4\", \"producto\":\"pan\", \"cantidad\":\"5\", \"categoria\":\"tela\"},\n{\"bar\": \"dos\", \"precio\": \"9\", \"producto\":\"perrio\", \"cantidad\":\"3\", \"categoria\":\"tela\"},\n{\"bar\": \"dos\", \"precio\": \"7\", \"producto\":\"filete\", \"cantidad\":\"1\", \"categoria\":\"tela\"},\n{\"bar\": \"dos\", \"precio\": \"6\", \"producto\":\"sopa\", \"cantidad\":\"2\", \"categoria\":\"comida\"},\n{\"bar\": \"dos\", \"precio\": \"8\", \"producto\":\"croquetas\", \"cantidad\":\"2\", \"categoria\":\"comida\"}]\n\n\ni = Math.floor(Math.random() * 5);\nmsgList.push({payload:datos[i]});\nreturn [msgList];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 558,
+        "y": 496,
+        "wires": [
+            [
+                "ed60c022f6e2dede",
+                "851fbbcfb7b0c614"
+            ]
+        ]
+    },
+    {
+        "id": "851fbbcfb7b0c614",
+        "type": "json",
+        "z": "b16c048db926d228",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 778,
+        "y": 536,
+        "wires": [
+            [
+                "e1f2a5e401ec2966"
+            ]
+        ]
+    }
+]
