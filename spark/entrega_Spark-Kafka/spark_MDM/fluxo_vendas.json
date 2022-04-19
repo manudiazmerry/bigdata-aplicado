@@ -1,0 +1,201 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f6fa9abf59b61c4f",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "4",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "tenda A",
+        "payloadType": "str",
+        "x": 100,
+        "y": 80,
+        "wires": [
+            [
+                "e6d269f3882dfa13"
+            ]
+        ]
+    },
+    {
+        "id": "a70fc51101605d2e",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "e6d269f3882dfa13",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "var mensaje = [];\n\nmarca = [\"seat\",\"renault\",\"ford\",\"peugeot\"]\nmodelo = [\"rapid\",\"big-one\",\"little\",\"comfort\"]\ncolor = [\"azul\",\"verde\",\"amarillo\",\"rojo\"]\nenergia = [\"gasolina\",\"diesel\",\"eléctrico\",\"híbrido\"]\nprecio = [18000,21000,24000,30000]\n\ni = Math.floor(Math.random() * 4);\n\n\ndato_json = {tienda:\"Tenda A\", marca:marca[i], modelo:modelo[i], color:color[i], energia:energia[i], precio:precio[i]}\n\nmensaje.push({payload:dato_json});\n\nreturn [mensaje];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 220,
+        "wires": [
+            [
+                "a70fc51101605d2e",
+                "a9a5c0771edd9804"
+            ]
+        ]
+    },
+    {
+        "id": "7f0b147f7c23e334",
+        "type": "kafkajs-producer",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "client": "d3eefb1764171f46",
+        "topic": "vendas",
+        "advancedoptions": false,
+        "acknowledge": "all",
+        "partition": "",
+        "headeritems": {},
+        "key": "",
+        "responsetimeout": 30000,
+        "transactiontimeout": 60000,
+        "metadatamaxage": 300000,
+        "allowautotopiccreation": false,
+        "x": 440,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "a9a5c0771edd9804",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 210,
+        "y": 360,
+        "wires": [
+            [
+                "7f0b147f7c23e334"
+            ]
+        ]
+    },
+    {
+        "id": "76a9a73de8f86ab4",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "7",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "tenda B",
+        "payloadType": "str",
+        "x": 100,
+        "y": 620,
+        "wires": [
+            [
+                "1d604070a8e5d2a5"
+            ]
+        ]
+    },
+    {
+        "id": "1d604070a8e5d2a5",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "\nvar mensaje = [];\n\nmarca = [\"citroen\",\"bmw\",\"audi\",\"fiat\"]\nmodelo = [\"rapid\",\"big-one\",\"little\",\"comfort\"]\ncolor = [\"azul\",\"verde\",\"amarillo\",\"rojo\"]\nenergia = [\"gasolina\",\"diesel\",\"eléctrico\",\"híbrido\"]\nprecio = [19000,22000,25000,31000]\n\ni = Math.floor(Math.random() * 4);\n\n\ndato_json = {tienda:\"Tenda B\", marca:marca[i], modelo:modelo[i], color:color[i], energia:energia[i], precio:precio[i]}\n\nmensaje.push({payload:dato_json});\n\nreturn [mensaje];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 520,
+        "wires": [
+            [
+                "a9a5c0771edd9804",
+                "621a599f93ac716b"
+            ]
+        ]
+    },
+    {
+        "id": "621a599f93ac716b",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d3eefb1764171f46",
+        "type": "kafkajs-client",
+        "name": "",
+        "brokers": "kafka:9092",
+        "clientid": "",
+        "connectiontimeout": "3000",
+        "requesttimeout": "25000",
+        "advancedretry": false,
+        "maxretrytime": "30000",
+        "initialretrytime": "300",
+        "factor": "0.2",
+        "multiplier": "2",
+        "retries": "5",
+        "auth": "none",
+        "tlsselfsign": false,
+        "tlscacert": "",
+        "tlsclientcert": "",
+        "tlsprivatekey": "",
+        "tlspassphrase": "",
+        "saslssl": true,
+        "saslmechanism": "plain",
+        "loglevel": "error"
+    }
+]
